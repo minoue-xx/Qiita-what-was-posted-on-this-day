@@ -14,6 +14,7 @@ catch ME
     disp("This program ends here.")
     rethrow(ME)
 end
+disp("onThisDayQiita" + nYear + ".csv is loaded"):
 
 data.twitterID = string(data.twitterID);
 
@@ -30,12 +31,16 @@ data2 = data(idx2,:);
 tnow = dateshift(datetime,'start','hour');
 t1 = tnow - calyears(year(datetime));
 
-period = 40;
+period = 4;
 trange = timerange(t1, t1+hours(period));
 subdata = data2(trange,:);
 
 if height(subdata) == 0
    disp("no qiita during this time frame: " + string(tnow) + " - " + string(tnow + hours(period)));
+   disp("Completed.")
+   return;
+else
+   disp(height(subdata) + " items found during this time frame: " + string(tnow) + " - " + string(tnow + hours(period)));
 end
 
 
@@ -51,6 +56,7 @@ string2tweet = @(howOld, user, url, twitterID) ...
 
 
 %% ThingTweet set-up
+disp("Setting up ThingTweet...");
 tturl='https://api.thingspeak.com/apps/thingtweet/1/statuses/update';
 api_key = getenv('THINGTWEETAPIKEY');
 options = weboptions('MediaType','application/x-www-form-urlencoded');
@@ -68,9 +74,12 @@ for ii=1:N
     
     if tweetFlag
         try
-            webwrite(tturl, 'api_key', api_key, 'status', str, options);
+            disp("Tweeting " + ii + "/" + N + "...");
+            webwrite(tturl, 'api_key', api_key, 'status', str, options);      
         catch ME
             disp(ME)
         end
     end
 end
+
+disp("Completed.")
