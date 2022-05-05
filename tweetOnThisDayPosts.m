@@ -34,7 +34,7 @@ period = 40;
 trange = timerange(t1, t1+hours(period));
 subdata = data2(trange,:);
 
-if height(subdate) == 0
+if height(subdata) == 0
    disp("no qiita during this time frame: " + string(tnow) + " - " + string(tnow + hours(period)));
 end
 
