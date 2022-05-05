@@ -14,7 +14,7 @@ catch ME
     disp("This program ends here.")
     rethrow(ME)
 end
-disp("onThisDayQiita" + nYear + ".csv is loaded"):
+disp("onThisDayQiita" + nYear + ".csv is loaded");
 
 data.twitterID = string(data.twitterID);
 
