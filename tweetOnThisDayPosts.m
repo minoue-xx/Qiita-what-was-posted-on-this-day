@@ -8,11 +8,13 @@ nYear = year(datetime);
 
 try
     data = readtimetable("onThisDayQiita" + nYear + ".csv");
-catch
-    disp("onThisDayQiita" + nYear + ".csv" + " does not exist.")
-    disp("Please run getAllQiitaArticles.m.")
+catch ME
+    disp("There is an issue with onThisDayQiita" + nYear + ".csv")
+    disp("Please run getAllQiitaArticles.m to regenerate the file.")
     disp("This program ends here.")
+    rethrow(ME)
 end
+
 data.twitterID = string(data.twitterID);
 
 % Check the item with more than 2 likes and posted in the previous years.
