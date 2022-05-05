@@ -1,5 +1,5 @@
 name: Get All Qiita Articles
-# on: [push]
+on: [push]
 # cron: 
 # * * * * * 
 # | | | | |
@@ -8,9 +8,9 @@ name: Get All Qiita Articles
 # | | |----- day
 # | |------- hour
 # |--------- minute
-on: 
-  schedule:
-    - cron: '0 0 1 1 *'
+#on: 
+#  schedule:
+#    - cron: '0 0 1 1 *'
 jobs:
   my-job:
     name: Run getAllQiitaArticles.m and commit the updates
