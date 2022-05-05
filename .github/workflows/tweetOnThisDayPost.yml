@@ -1,0 +1,28 @@
+name: Tweet the posts on this day (every 4 hours)
+# on: [push]
+# cron: 
+# * * * * * 
+# | | | | |
+# | | | | |- weekday (0:sun 6: sat)
+# | | | |--- month
+# | | |----- day
+# | |------- hour
+# |--------- minute
+ on: 
+  schedule:
+    - cron: '0 0,4,8,12,16,20 * * *'
+jobs:
+  my-job:
+    name: Run tweetOnThisDayPost.m
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v2
+      - name: Set up MATLAB
+        uses: matlab-actions/setup-matlab@v1
+      - name: Run script
+        uses: matlab-actions/run-command@v1
+        env:
+          THINGTWEETAPIKEY: ${{ secrets.THINGTWEETAPIKEY }}
+        with:
+          command: tweetOnThisDayPost
