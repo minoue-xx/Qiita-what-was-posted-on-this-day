@@ -13,7 +13,7 @@ on: [push]
 #     - cron: '0 0,4,8,12,16,20 * * *'
 jobs:
   my-job:
-    name: Run tweetOnThisDayPost.m
+    name: Run tweetOnThisDayPosts.m
     runs-on: ubuntu-latest
     steps:
       - name: Check out repository
