@@ -29,8 +29,15 @@ data2 = data(idx2,:);
 % the hour. Assume it does not delay more than an hour.
 tnow = dateshift(datetime,'start','hour');
 t1 = tnow - calyears(year(datetime));
-trange = timerange(t1, t1+hours(40));
+
+period = 40;
+trange = timerange(t1, t1+hours(period));
 subdata = data2(trange,:);
+
+if height(subdate) == 0
+   disp("no qiita during this time frame: " + string(tnow) + " - " + string(tnow + hours(period)));
+end
+
 
 % Generate twitter ID to mantion on Twitter 
 idxTwitterTrue = strlength(subdata.twitterID) > 0;
@@ -50,7 +57,7 @@ options = weboptions('MediaType','application/x-www-form-urlencoded');
 options.Timeout = 10;
 
 %% Tweet if any with in the time period
-tweetFlag = false;
+tweetFlag = true;
 N = height(subdata);
 for ii=1:N
     str = string2tweet(subdata.howOld(ii), subdata.user(ii), ...
