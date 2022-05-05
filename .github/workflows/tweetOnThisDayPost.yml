@@ -8,7 +8,7 @@ name: Tweet the posts on this day (every 4 hours)
 # | | |----- day
 # | |------- hour
 # |--------- minute
- on: 
+on: 
   schedule:
     - cron: '0 0,4,8,12,16,20 * * *'
 jobs:
