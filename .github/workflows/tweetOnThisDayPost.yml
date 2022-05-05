@@ -1,5 +1,5 @@
 name: Tweet the posts on this day (every 4 hours)
-# on: [push]
+on: [push]
 # cron: 
 # * * * * * 
 # | | | | |
