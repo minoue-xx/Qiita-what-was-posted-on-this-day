@@ -29,7 +29,7 @@ data2 = data(idx2,:);
 % the hour. Assume it does not delay more than an hour.
 tnow = dateshift(datetime,'start','hour');
 t1 = tnow - calyears(year(datetime));
-trange = timerange(t1, t1+hours(4));
+trange = timerange(t1, t1+hours(40));
 subdata = data2(trange,:);
 
 % Generate twitter ID to mantion on Twitter 
