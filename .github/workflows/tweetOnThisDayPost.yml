@@ -25,4 +25,4 @@ jobs:
         env:
           THINGTWEETAPIKEY: ${{ secrets.THINGTWEETAPIKEY }}
         with:
-          command: tweetOnThisDayPost
+          command: tweetOnThisDayPosts
