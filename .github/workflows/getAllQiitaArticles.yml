@@ -1,0 +1,40 @@
+name: Get All Qiita Articles
+# on: [push]
+# cron: 
+# * * * * * 
+# | | | | |
+# | | | | |- weekday (0:sun 6: sat)
+# | | | |--- month
+# | | |----- day
+# | |------- hour
+# |--------- minute
+on: 
+  schedule:
+    - cron: '0 0 1 1 *'
+jobs:
+  my-job:
+    name: Run getAllQiitaArticles.m and commit the updates
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v2
+      - name: Set up MATLAB
+        uses: matlab-actions/setup-matlab@v1
+      - name: Run script
+        uses: matlab-actions/run-command@v1
+        env:
+          QIITAACCESSTOKEN: ${{ secrets.QIITAACCESSTOKEN }}
+        with:
+          command: getAllQiitaArticles
+          
+      - name: Push updated files
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          git remote set-url origin https://github-actions:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}
+          git config --global user.name "${GITHUB_ACTOR}"
+          git config --global user.email "${GITHUB_ACTOR}@users.noreply.github.com"
+          git diff --shortstat
+          git add .
+          git commit -m "Article history updated by github-actions"
+          git push origin HEAD:${GITHUB_REF}
