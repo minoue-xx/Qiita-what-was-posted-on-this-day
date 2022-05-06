@@ -7,7 +7,7 @@
 nYear = year(datetime);
 
 try
-    data = readtimetable("onThisDayQiita" + nYear + ".csv");
+    data = readtimetable("onThisDayQiita" + nYear + ".csv",'DateLocale','en_US');
 catch ME
     disp("There is an issue with onThisDayQiita" + nYear + ".csv")
     disp("Please run getAllQiitaArticles.m to regenerate the file.")
