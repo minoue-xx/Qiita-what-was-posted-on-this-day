@@ -1,7 +1,7 @@
 % Run on 4 hours interval to make tweet the articles 
 % that were posted during the same time period in the previous years.
 % Check tweetOnThisDayPost.yml
-% Copyright (c) 2022 Michio Inoue.
+% Copyright (c) 2022-2023 Michio Inoue.
 
 % Load the list into timetable (make sure if it was generated)
 nYear = year(datetime);
@@ -54,14 +54,6 @@ string2tweet = @(howOld, title, user, url, twitterID) ...
 + title + " by " + user + " さん " + twitterID + newline ...
 + url;
 
-
-%% ThingTweet set-up
-disp("Setting up ThingTweet...");
-tturl='https://api.thingspeak.com/apps/thingtweet/1/statuses/update';
-api_key = getenv('THINGTWEETAPIKEY');
-options = weboptions('MediaType','application/x-www-form-urlencoded');
-options.Timeout = 10;
-
 %% Tweet if any with in the time period
 tweetFlag = true;
 N = height(subdata);
@@ -75,7 +67,7 @@ for ii=1:N
     if tweetFlag
         try
             disp("Tweeting " + ii + "/" + N + "...");
-            webwrite(tturl, 'api_key', api_key, 'status', str, options);      
+            py.tweetQiita.tweetV2(str)
         catch ME
             disp(ME)
         end
