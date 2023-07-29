@@ -34,6 +34,9 @@ jobs:
         uses: matlab-actions/run-command@v1
         env:
           THINGTWEETAPIKEY: ${{ secrets.THINGTWEETAPIKEY }}
-          QIITAACCESSTOKEN: ${{ secrets.QIITAACCESSTOKEN}}
+          ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN}}
+          ACCESS_TOKEN_SECRET: ${{ secrets.ACCESS_TOKEN_SECRET}}
+          API_KEY: ${{ secrets.API_KEY}}
+          API_KEY_SECRET: ${{ secrets.API_KEY_SECRET}}  
         with:
           command: tweetNewQiita
