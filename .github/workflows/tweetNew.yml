@@ -1,0 +1,39 @@
+name: Tweet new posts Qiita (every 2 hours)
+# on: [push]
+# cron: 
+# * * * * * 
+# | | | | |
+# | | | | |- weekday (0:sun 6: sat)
+# | | | |--- month
+# | | |----- day
+# | |------- hour
+# |--------- minute
+on: 
+   schedule:
+     - cron: '0 0,2,4,6,8,10,12,14,16,18,20,22 * * *'
+jobs:
+  my-job:
+    name: Run tweetNewQiita.m
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v2
+      - name: Setup Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.10'
+      - name: Get Python version
+        run: python -V
+      - name: Install dependencies (Tweepy)
+        run: pip install -r requirements.txt
+      - name: Set up MATLAB
+        uses: matlab-actions/setup-matlab@v1
+        with:
+          release: 'R2023a'
+      - name: Run script and tweet
+        uses: matlab-actions/run-command@v1
+        env:
+          THINGTWEETAPIKEY: ${{ secrets.THINGTWEETAPIKEY }}
+          QIITAACCESSTOKEN: ${{ secrets.QIITAACCESSTOKEN}}
+        with:
+          command: tweetNewQiita
